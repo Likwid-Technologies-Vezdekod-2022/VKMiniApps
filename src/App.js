@@ -4,13 +4,32 @@ import { View, ScreenSpinner, AdaptivityProvider, AppRoot, ConfigProvider, Split
 import '@vkontakte/vkui/dist/vkui.css';
 
 import Home from './panels/Home';
-import Persik from './panels/Persik';
+import Game from './panels/Game';
 
 const App = () => {
 	const [scheme, setScheme] = useState('bright_light')
 	const [activePanel, setActivePanel] = useState('home');
 	const [fetchedUser, setUser] = useState(null);
 	const [popout, setPopout] = useState(<ScreenSpinner size='large' />);
+
+	const [locations, setLocations] = useState([
+		{ id: 1, title: 'Стройплощадка', status: 'Прораб' },
+		{ id: 2, title: 'Метро', status: 'Машинист' },
+		{ id: 3, title: 'Стадион', status: 'Бегун' },
+		{ id: 4, title: 'Музей', status: 'Посетитель' },
+		{ id: 5, title: 'Экскурсионный автобус', status: 'Водитель' },
+		{ id: 6, title: 'Рок-концерт', status: 'Фанат' },
+		{ id: 7, title: 'Заправочная станция', status: 'Кассир' },
+		{ id: 8, title: 'Парламент', status: 'Депутат' },
+		{ id: 9, title: 'Дом престарелых', status: 'Дед' },
+		{ id: 10, title: 'Шахта', status: 'Шахтер' },
+		{ id: 11, title: 'Библиотека', status: 'Читатель' },
+		{ id: 12, title: 'Шоколадная фабрика', status: 'Кондитер' },
+	])
+
+	const [playersCount, setPlayersCount] = useState('');
+
+	const [deck, setDeck] = useState([]);
 
 	useEffect(() => {
 		bridge.subscribe(({ detail: { type, data }}) => {
@@ -38,8 +57,8 @@ const App = () => {
 					<SplitLayout popout={popout}>
 						<SplitCol>
 							<View activePanel={activePanel}>
-								<Home id='home' fetchedUser={fetchedUser} go={go} />
-								<Persik id='persik' go={go} />
+								<Home id='home' fetchedUser={fetchedUser} go={go} locations={locations} playersCount={playersCount} setPlayersCount={setPlayersCount} setDeck={setDeck} />
+								<Game id='game' deck={deck} setPlayersCount={setPlayersCount} go={go} />
 							</View>
 						</SplitCol>
 					</SplitLayout>
