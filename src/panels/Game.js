@@ -32,6 +32,8 @@ const Game = ({id, go, deck, playersCount, setPlayersCount}) => {
 		if (time === 0) {
 			intervalId = null;
 			clearInterval(intervalId);
+
+			setCurrentCardIdx(deck.length);
 		}
 	}, [time])
 
