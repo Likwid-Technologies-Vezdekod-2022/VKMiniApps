@@ -12,10 +12,10 @@ const Game = ({id, go, deck}) => {
 
 	const block = () => {
 		setBlock(true);
+		setCurrentCardIdx(currentCardIdx + 1);
 	}	
 
 	const changeIdx = () => {
-		setCurrentCardIdx(currentCardIdx + 1);
 		setBlock(false);
 	}
 
@@ -28,7 +28,7 @@ const Game = ({id, go, deck}) => {
 			</PanelHeader>
 
 			<Div>
-				{!isBlock && <Div>
+				{!isBlock && currentCardIdx !== deck.length && <Div>
 					<Group mode="plain"
 						header={<Header mode="secondary">Ваша карта: </Header>}>
 							
@@ -39,13 +39,13 @@ const Game = ({id, go, deck}) => {
 							/>
 						</CardGrid>
 
-						<Button stretched size="l" mode="secondary" onClick={block}>
+						<Button stretched size="l" mode="secondary" onClick={block} className="game__btn">
 							Дальше
 						</Button>
 					</Group>
 				</Div>}
 
-				{isBlock && <Div>
+				{isBlock && currentCardIdx !== deck.length && <Div>
 					<Group mode="plain"
 						header={<Header mode="secondary">Не подглядывайте!</Header>}>
 							
@@ -59,6 +59,16 @@ const Game = ({id, go, deck}) => {
 					<Button stretched size="l" mode="secondary" onClick={changeIdx}>
 						Все ок
 					</Button>
+				</Div>}
+
+				{currentCardIdx === deck.length && <Div>
+					<Group mode="plain">
+						<CardGrid size="l">
+							<ContentCard
+								header="Игра окончена!"
+							/>
+						</CardGrid>
+					</Group>
 				</Div>}
 			</Div>
 
