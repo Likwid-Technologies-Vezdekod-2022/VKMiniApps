@@ -12,7 +12,24 @@ const App = () => {
 	const [fetchedUser, setUser] = useState(null);
 	const [popout, setPopout] = useState(<ScreenSpinner size='large' />);
 
+	const [locations, setLocations] = useState([
+		{ id: 1, title: 'Стройплощадка', status: 'Прораб' },
+		{ id: 2, title: 'Метро', status: 'Машинист' },
+		{ id: 3, title: 'Стадион', status: 'Бегун' },
+		{ id: 4, title: 'Музей', status: 'Посетитель' },
+		{ id: 5, title: 'Экскурсионный автобус', status: 'Водитель' },
+		{ id: 6, title: 'Рок-концерт', status: 'Фанат' },
+		{ id: 7, title: 'Заправочная станция', status: 'Кассир' },
+		{ id: 8, title: 'Парламент', status: 'Депутат' },
+		{ id: 9, title: 'Дом престарелых', status: 'Дед' },
+		{ id: 10, title: 'Шахта', status: 'Шахтер' },
+		{ id: 11, title: 'Библиотека', status: 'Читатель' },
+		{ id: 12, title: 'Шоколадная фабрика', status: 'Кондитер' },
+	])
+
 	const [playersCount, setPlayersCount] = useState(0);
+
+	const [cardsId, setCardsId] = useState([]);
 
 	useEffect(() => {
 		bridge.subscribe(({ detail: { type, data }}) => {
@@ -40,8 +57,8 @@ const App = () => {
 					<SplitLayout popout={popout}>
 						<SplitCol>
 							<View activePanel={activePanel}>
-								<Home id='home' fetchedUser={fetchedUser} go={go} playersCount={playersCount} setPlayersCount={setPlayersCount} />
-								<Game id='game' go={go} />
+								<Home id='home' fetchedUser={fetchedUser} go={go} locations={locations} playersCount={playersCount} setPlayersCount={setPlayersCount} cardsId={cardsId} setCardsId={setCardsId} />
+								<Game id='game' playersCount={playersCount} locations={locations} go={go} />
 							</View>
 						</SplitCol>
 					</SplitLayout>

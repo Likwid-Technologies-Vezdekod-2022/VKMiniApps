@@ -1,17 +1,20 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import { Panel, PanelHeader, PanelHeaderBack } from '@vkontakte/vkui';
 
-import './Persik.css';
+import './Game.css';
 
-const Game = props => (
-	<Panel id={props.id}>
-		<PanelHeader
-			left={<PanelHeaderBack onClick={props.go} data-to="home"/>}
-		>
-			Persik
-		</PanelHeader>
-	</Panel>
-);
+const Game = ({id, go, deck}) => {
+	return (
+		<Panel id={id}>
+			<PanelHeader
+				left={<PanelHeaderBack onClick={go} data-to="home"/>}>
+					
+				Game
+			</PanelHeader>
+
+		</Panel>
+	)
+};
 
 export default Game;
