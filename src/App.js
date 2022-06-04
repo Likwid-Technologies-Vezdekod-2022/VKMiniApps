@@ -58,7 +58,7 @@ const App = () => {
 						<SplitCol>
 							<View activePanel={activePanel}>
 								<Home id='home' fetchedUser={fetchedUser} go={go} locations={locations} playersCount={playersCount} setPlayersCount={setPlayersCount} setDeck={setDeck} />
-								<Game id='game' deck={deck} setPlayersCount={setPlayersCount} go={go} />
+								<Game id='game' deck={deck} playersCount={playersCount} setPlayersCount={setPlayersCount} go={go} />
 							</View>
 						</SplitCol>
 					</SplitLayout>

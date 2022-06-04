@@ -1,16 +1,41 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
-import { Panel, PanelHeader, PanelHeaderBack, Div, Group, CardGrid, Card, Header, ContentCard, Button } from '@vkontakte/vkui';
+import { Panel, PanelHeader, PanelHeaderBack, Div, Group, CardGrid, Card, Header, ContentCard, Button, Title } from '@vkontakte/vkui';
 
 import './Game.css';
 
-const Game = ({id, go, deck, setPlayersCount}) => {
+const Game = ({id, go, deck, playersCount, setPlayersCount}) => {
 	const [currentCardIdx, setCurrentCardIdx] = useState(0);
 	const [isBlock, setBlock] = useState(false);
 
 	const currentCard = deck[currentCardIdx];
 
-	const goToHome= (e) => {
+	let intervalId;
+
+	const [time, setTime] = useState(playersCount * 60000);
+
+	const [timeTitle, setTimeTitle] = useState({ minutes: '', seconds: '' });
+
+	const updateTime = () => {
+		intervalId = setInterval(() => {
+			setTime(time => time - 1000);
+		}, 1000);
+	}
+
+	useEffect(() => {
+		updateTime();
+	}, [])
+
+	useEffect(() => {
+		setTimeTitle({ minutes: Math.floor(time / 60000), seconds: (time % 60000) / 1000 });
+
+		if (time === 0) {
+			intervalId = null;
+			clearInterval(intervalId);
+		}
+	}, [time])
+
+	const goToHome = (e) => {
 		setPlayersCount('');
 		go(e);
 	}
@@ -33,6 +58,10 @@ const Game = ({id, go, deck, setPlayersCount}) => {
 			</PanelHeader>
 
 			<Div>
+				<Title>
+					{time > 0 && `${timeTitle.minutes}:${timeTitle.seconds}`}
+				</Title>
+
 				{!isBlock && currentCardIdx !== deck.length && <Div>
 					<Group mode="plain"
 						header={<Header mode="secondary">Ваша карта: </Header>}>
