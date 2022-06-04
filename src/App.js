@@ -12,6 +12,8 @@ const App = () => {
 	const [fetchedUser, setUser] = useState(null);
 	const [popout, setPopout] = useState(<ScreenSpinner size='large' />);
 
+	const [playersCount, setPlayersCount] = useState(null);
+
 	useEffect(() => {
 		bridge.subscribe(({ detail: { type, data }}) => {
 			if (type === 'VKWebAppUpdateConfig') {
@@ -38,7 +40,7 @@ const App = () => {
 					<SplitLayout popout={popout}>
 						<SplitCol>
 							<View activePanel={activePanel}>
-								<Home id='home' fetchedUser={fetchedUser} go={go} />
+								<Home id='home' fetchedUser={fetchedUser} go={go} playersCount={playersCount} setPlayersCount={setPlayersCount} />
 								<Persik id='persik' go={go} />
 							</View>
 						</SplitCol>

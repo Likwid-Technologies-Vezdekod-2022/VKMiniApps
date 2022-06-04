@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 
-import { Panel, PanelHeader, Header, Button, Group, Cell, Div, Avatar } from '@vkontakte/vkui';
+import { Panel, PanelHeader, Header, Button, Group, Cell, Div, Avatar, FormLayout, FormItem, Input } from '@vkontakte/vkui';
 
-const Home = ({ id, go, fetchedUser }) => {
+const Home = ({ id, go, fetchedUser, playersCount, setPlayersCount }) => {
 	const [locations, setLocations] = useState([
 		{ id: 1, title: 'Стройплощадка', status: 'Прораб' },
 		{ id: 2, title: 'Метро', status: 'Машинист' },
@@ -18,18 +18,34 @@ const Home = ({ id, go, fetchedUser }) => {
 		{ id: 12, title: 'Шоколадная фабрика', status: 'Кондитер' },
 	])
 
+	const [disabled, setDisabled] = useState(true);
+
 	return (
 		<Panel id={id}>
 			<PanelHeader>Локации</PanelHeader>
 			{fetchedUser &&
-			<Group>
-				{locations.map((location, idx) =>
-					<Cell description={`Статус: ${location.status}`}>
+			<Div>
+				<Group>
+					<FormLayout>
+						<FormItem top="Введите количество игроков: ">
+							<Input value={playersCount} onChange={e => {setPlayersCount(e.target.value), setDisabled(false)}} type="number"/>
+						</FormItem>
 
-					{location.title}
-					</Cell>
-				)}
-			</Group>}
+						<Button stretched size="l" mode="secondary" onClick={go} data-to="persik" disabled={disabled}>
+							Играть!
+						</Button>
+					</FormLayout>
+				</Group>
+
+				<Group>
+					{locations.map((location, idx) =>
+						<Cell description={`Статус: ${location.status}`}>
+
+						{location.title}
+						</Cell>
+					)}
+				</Group>
+			</Div>}
 	
 			{/* <Group header={<Header mode="secondary">Navigation Example</Header>}>
 				<Div>
