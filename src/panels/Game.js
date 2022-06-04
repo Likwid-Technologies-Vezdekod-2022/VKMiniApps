@@ -1,10 +1,15 @@
 import React, { useEffect, useState } from 'react';
 
+import bridge from "@vkontakte/vk-bridge";
+
 import { Panel, PanelHeader, PanelHeaderBack, Div, Group, CardGrid, Card, Header, ContentCard, Button, Title } from '@vkontakte/vkui';
 
 import './Game.css';
 
 const Game = ({id, go, deck, playersCount, setPlayersCount}) => {
+
+	const [flashlightData, setFlashlightData] = useState({});
+
 	const [currentCardIdx, setCurrentCardIdx] = useState(0);
 	const [isBlock, setBlock] = useState(false);
 
@@ -16,13 +21,29 @@ const Game = ({id, go, deck, playersCount, setPlayersCount}) => {
 
 	const [timeTitle, setTimeTitle] = useState({ minutes: '', seconds: '' });
 
+	const fetchFlashlight = async () => {
+		bridge.send("VKWebAppFlashGetInfo").then(
+            data => {
+                console.log(data);
+				setFlashlightData(data);
+            }
+        ).catch(
+            error => {
+                console.log(error);
+                return false;
+            }
+        );
+	}
+
 	const updateTime = () => {
 		intervalId = setInterval(() => {
 			setTime(time => time - 1000);
 		}, 1000);
 	}
 
-	useEffect(() => {
+	useEffect(async () => {
+		await fetchFlashlight();
+
 		updateTime();
 	}, [])
 
@@ -35,6 +56,16 @@ const Game = ({id, go, deck, playersCount, setPlayersCount}) => {
 
 			setCurrentCardIdx(deck.length);
 		}
+
+		if (time < 10000 && time > 0 && flashlightData.is_available) {
+			if (time % 2000 == 0) {
+				bridge.send("VKWebAppFlashSetLevel", {"level": 1});
+			}
+			else {
+				bridge.send("VKWebAppFlashSetLevel", {"level": 0});
+			}
+		}
+
 	}, [time])
 
 	const goToHome = (e) => {
