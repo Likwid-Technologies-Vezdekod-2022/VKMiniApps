@@ -27,7 +27,7 @@ const App = () => {
 		{ id: 12, title: 'Шоколадная фабрика', status: 'Кондитер' },
 	])
 
-	const [playersCount, setPlayersCount] = useState(0);
+	const [playersCount, setPlayersCount] = useState('');
 
 	const [deck, setDeck] = useState([]);
 
@@ -58,7 +58,7 @@ const App = () => {
 						<SplitCol>
 							<View activePanel={activePanel}>
 								<Home id='home' fetchedUser={fetchedUser} go={go} locations={locations} playersCount={playersCount} setPlayersCount={setPlayersCount} setDeck={setDeck} />
-								<Game id='game' deck={deck} go={go} />
+								<Game id='game' deck={deck} setPlayersCount={setPlayersCount} go={go} />
 							</View>
 						</SplitCol>
 					</SplitLayout>

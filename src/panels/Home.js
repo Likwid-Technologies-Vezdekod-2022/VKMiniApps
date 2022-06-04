@@ -32,8 +32,10 @@ const Home = ({ id, go, fetchedUser, locations, playersCount, setPlayersCount, s
 	}
 
 	const inputValidate = (value) => {
+		value = +value;
+
 		if (value > 0 && value <= 12) {
-			setPlayersCount(+value);
+			setPlayersCount(value);
 
 			setDisabled(false);
 		}
@@ -48,7 +50,7 @@ const Home = ({ id, go, fetchedUser, locations, playersCount, setPlayersCount, s
 				<Group>
 					<FormLayout>
 						<FormItem top="Введите количество игроков: ">
-							<Input value={playersCount} onChange={e => inputValidate(e.target.value)} type="number"/>
+							<Input value={playersCount} onChange={e => inputValidate(e.target.value)} type="number" />
 						</FormItem>
 
 						<Button stretched size="l" mode="secondary" onClick={createDeck} data-to="game" disabled={disabled}>

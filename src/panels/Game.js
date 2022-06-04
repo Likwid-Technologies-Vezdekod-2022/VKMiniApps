@@ -4,11 +4,16 @@ import { Panel, PanelHeader, PanelHeaderBack, Div, Group, CardGrid, Card, Header
 
 import './Game.css';
 
-const Game = ({id, go, deck}) => {
+const Game = ({id, go, deck, setPlayersCount}) => {
 	const [currentCardIdx, setCurrentCardIdx] = useState(0);
 	const [isBlock, setBlock] = useState(false);
 
 	const currentCard = deck[currentCardIdx];
+
+	const goToHome= (e) => {
+		setPlayersCount('');
+		go(e);
+	}
 
 	const block = () => {
 		setBlock(true);
@@ -22,7 +27,7 @@ const Game = ({id, go, deck}) => {
 	return (
 		<Panel id={id}>
 			<PanelHeader
-				left={<PanelHeaderBack onClick={go} data-to="home"/>}>
+				left={<PanelHeaderBack onClick={goToHome} data-to="home"/>}>
 					
 				Game
 			</PanelHeader>
