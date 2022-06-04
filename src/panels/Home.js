@@ -20,6 +20,14 @@ const Home = ({ id, go, fetchedUser, playersCount, setPlayersCount }) => {
 
 	const [disabled, setDisabled] = useState(true);
 
+	const inputValidate = (value) => {
+		if (value > 0 && value <= 12) {
+			setPlayersCount(value);
+			setDisabled(false);
+		}
+		else setDisabled(true);
+	}
+
 	return (
 		<Panel id={id}>
 			<PanelHeader>Локации</PanelHeader>
@@ -28,10 +36,10 @@ const Home = ({ id, go, fetchedUser, playersCount, setPlayersCount }) => {
 				<Group>
 					<FormLayout>
 						<FormItem top="Введите количество игроков: ">
-							<Input value={playersCount} onChange={e => {setPlayersCount(e.target.value), setDisabled(false)}} type="number"/>
+							<Input value={playersCount} onChange={e => inputValidate(e.target.value)} type="number"/>
 						</FormItem>
 
-						<Button stretched size="l" mode="secondary" onClick={go} data-to="persik" disabled={disabled}>
+						<Button stretched size="l" mode="secondary" onClick={go} data-to="game" disabled={disabled}>
 							Играть!
 						</Button>
 					</FormLayout>
@@ -47,13 +55,6 @@ const Home = ({ id, go, fetchedUser, playersCount, setPlayersCount }) => {
 				</Group>
 			</Div>}
 	
-			{/* <Group header={<Header mode="secondary">Navigation Example</Header>}>
-				<Div>
-					<Button stretched size="l" mode="secondary" onClick={go} data-to="persik">
-						Show me the Persik, please
-					</Button>
-				</Div>
-			</Group> */}
 		</Panel>
 	);
 }

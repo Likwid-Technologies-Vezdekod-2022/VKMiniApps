@@ -4,7 +4,7 @@ import { View, ScreenSpinner, AdaptivityProvider, AppRoot, ConfigProvider, Split
 import '@vkontakte/vkui/dist/vkui.css';
 
 import Home from './panels/Home';
-import Persik from './panels/Persik';
+import Game from './panels/Game';
 
 const App = () => {
 	const [scheme, setScheme] = useState('bright_light')
@@ -12,7 +12,7 @@ const App = () => {
 	const [fetchedUser, setUser] = useState(null);
 	const [popout, setPopout] = useState(<ScreenSpinner size='large' />);
 
-	const [playersCount, setPlayersCount] = useState(null);
+	const [playersCount, setPlayersCount] = useState(0);
 
 	useEffect(() => {
 		bridge.subscribe(({ detail: { type, data }}) => {
@@ -41,7 +41,7 @@ const App = () => {
 						<SplitCol>
 							<View activePanel={activePanel}>
 								<Home id='home' fetchedUser={fetchedUser} go={go} playersCount={playersCount} setPlayersCount={setPlayersCount} />
-								<Persik id='persik' go={go} />
+								<Game id='game' go={go} />
 							</View>
 						</SplitCol>
 					</SplitLayout>
