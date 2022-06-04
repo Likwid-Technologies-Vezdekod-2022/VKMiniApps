@@ -1,42 +1,46 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, { useState } from 'react';
 
 import { Panel, PanelHeader, Header, Button, Group, Cell, Div, Avatar } from '@vkontakte/vkui';
 
-const Home = ({ id, go, fetchedUser }) => (
-	<Panel id={id}>
-		<PanelHeader>Example</PanelHeader>
-		{fetchedUser &&
-		<Group header={<Header mode="secondary">User Data Fetched with VK Bridge</Header>}>
-			<Cell
-				before={fetchedUser.photo_200 ? <Avatar src={fetchedUser.photo_200}/> : null}
-				description={fetchedUser.city && fetchedUser.city.title ? fetchedUser.city.title : ''}
-			>
-				{`${fetchedUser.first_name} ${fetchedUser.last_name}`}
-			</Cell>
-		</Group>}
+const Home = ({ id, go, fetchedUser }) => {
+	const [locations, setLocations] = useState([
+		{ id: 1, title: 'Стройплощадка', status: 'Прораб' },
+		{ id: 2, title: 'Метро', status: 'Машинист' },
+		{ id: 3, title: 'Стадион', status: 'Бегун' },
+		{ id: 4, title: 'Музей', status: 'Посетитель' },
+		{ id: 5, title: 'Экскурсионный автобус', status: 'Водитель' },
+		{ id: 6, title: 'Рок-концерт', status: 'Фанат' },
+		{ id: 7, title: 'Заправочная станция', status: 'Кассир' },
+		{ id: 8, title: 'Парламент', status: 'Депутат' },
+		{ id: 9, title: 'Дом престарелых', status: 'Дед' },
+		{ id: 10, title: 'Шахта', status: 'Шахтер' },
+		{ id: 11, title: 'Библиотека', status: 'Читатель' },
+		{ id: 12, title: 'Шоколадная фабрика', status: 'Кондитер' },
+	])
 
-		<Group header={<Header mode="secondary">Navigation Example</Header>}>
-			<Div>
-				<Button stretched size="l" mode="secondary" onClick={go} data-to="persik">
-					Show me the Persik, please
-				</Button>
-			</Div>
-		</Group>
-	</Panel>
-);
+	return (
+		<Panel id={id}>
+			<PanelHeader>Локации</PanelHeader>
+			{fetchedUser &&
+			<Group>
+				{locations.map((location, idx) =>
+					<Cell description={`Статус: ${location.status}`}>
 
-Home.propTypes = {
-	id: PropTypes.string.isRequired,
-	go: PropTypes.func.isRequired,
-	fetchedUser: PropTypes.shape({
-		photo_200: PropTypes.string,
-		first_name: PropTypes.string,
-		last_name: PropTypes.string,
-		city: PropTypes.shape({
-			title: PropTypes.string,
-		}),
-	}),
-};
+					{location.title}
+					</Cell>
+				)}
+			</Group>}
+	
+			{/* <Group header={<Header mode="secondary">Navigation Example</Header>}>
+				<Div>
+					<Button stretched size="l" mode="secondary" onClick={go} data-to="persik">
+						Show me the Persik, please
+					</Button>
+				</Div>
+			</Group> */}
+		</Panel>
+	);
+}
+
 
 export default Home;
