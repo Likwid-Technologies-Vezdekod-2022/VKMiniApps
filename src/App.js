@@ -29,7 +29,7 @@ const App = () => {
 
 	const [playersCount, setPlayersCount] = useState(0);
 
-	const [cardsId, setCardsId] = useState([]);
+	const [deck, setDeck] = useState([]);
 
 	useEffect(() => {
 		bridge.subscribe(({ detail: { type, data }}) => {
@@ -57,8 +57,8 @@ const App = () => {
 					<SplitLayout popout={popout}>
 						<SplitCol>
 							<View activePanel={activePanel}>
-								<Home id='home' fetchedUser={fetchedUser} go={go} locations={locations} playersCount={playersCount} setPlayersCount={setPlayersCount} cardsId={cardsId} setCardsId={setCardsId} />
-								<Game id='game' playersCount={playersCount} locations={locations} go={go} />
+								<Home id='home' fetchedUser={fetchedUser} go={go} locations={locations} playersCount={playersCount} setPlayersCount={setPlayersCount} setDeck={setDeck} />
+								<Game id='game' deck={deck} go={go} />
 							</View>
 						</SplitCol>
 					</SplitLayout>
