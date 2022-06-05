@@ -23,7 +23,7 @@ const PlayersForm = ({ id, go, deck, setDeck }) => {
                 <Group>
                     <FormLayout>
                         {deck.map((card, idx) =>
-                            <FormItem top="Введите количество игроков: " key={idx}>
+                            <FormItem top="Введите имя игрока: " key={idx}>
                                 <Input onChange={e => changeCardOwners(e.target.value, idx)} />
                             </FormItem>
                         )}

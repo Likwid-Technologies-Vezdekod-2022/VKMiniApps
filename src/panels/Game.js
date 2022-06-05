@@ -24,15 +24,9 @@ const Game = ({id, go, deck, playersCount, setPlayersCount}) => {
 	const fetchFlashlight = async () => {
 		bridge.send("VKWebAppFlashGetInfo").then(
             data => {
-                console.log(data);
 				setFlashlightData(data);
             }
-        ).catch(
-            error => {
-                console.log(error);
-                return false;
-            }
-        );
+        )
 	}
 
 	const updateTime = () => {
@@ -81,12 +75,12 @@ const Game = ({id, go, deck, playersCount, setPlayersCount}) => {
 		go(e);
 	}
 
-	const block = () => {
+	const changeIdx = () => {
 		setBlock(true);
 		setCurrentCardIdx(currentCardIdx + 1);
 	}	
 
-	const changeIdx = () => {
+	const unBlock = () => {
 		setBlock(false);
 	}
 
@@ -114,7 +108,7 @@ const Game = ({id, go, deck, playersCount, setPlayersCount}) => {
 							/>
 						</CardGrid>
 
-						<Button stretched size="l" mode="secondary" onClick={block} className="game__btn">
+						<Button stretched size="l" mode="secondary" onClick={changeIdx} className="game__btn">
 							Дальше
 						</Button>
 					</Group>
@@ -131,7 +125,7 @@ const Game = ({id, go, deck, playersCount, setPlayersCount}) => {
 						</CardGrid>
 					</Group>
 
-					<Button stretched size="l" mode="secondary" onClick={changeIdx}>
+					<Button stretched size="l" mode="secondary" onClick={unBlock}>
 						Все ок
 					</Button>
 				</Div>}
