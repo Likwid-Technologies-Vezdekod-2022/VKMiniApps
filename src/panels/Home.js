@@ -22,7 +22,7 @@ const Home = ({ id, go, fetchedUser, locations, playersCount, setPlayersCount, s
 
 		// Заменяем 
 		rawDeck = rawDeck.map((item, idx) => {
-			if (idx === spyesIdxs[0] || idx === spyesIdxs[1]) return { title: '', status: 'Шпион' }
+			if (idx === spyesIdxs[0] || idx === spyesIdxs[1]) return { title: '', status: 'Шпион', owner: '' }
 			else return item
 		})
 
@@ -70,7 +70,6 @@ const Home = ({ id, go, fetchedUser, locations, playersCount, setPlayersCount, s
 	const addNewLocation = () => {
         setLocations([...locations, newLocation]);
 		setIsCreating(false);
-		console.log(locations)
 	}
 
 	return (
@@ -84,7 +83,7 @@ const Home = ({ id, go, fetchedUser, locations, playersCount, setPlayersCount, s
 							<Input value={playersCount} onChange={e => inputValidate(e.target.value)} type="number" />
 						</FormItem>
 
-						<Button stretched size="l" mode="secondary" onClick={createDeck} data-to="game" disabled={disabled}>
+						<Button stretched size="l" mode="secondary" onClick={createDeck} data-to="playersform" disabled={disabled}>
 							Играть!
 						</Button>
 
