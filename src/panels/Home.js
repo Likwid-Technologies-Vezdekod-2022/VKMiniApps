@@ -60,6 +60,19 @@ const Home = ({ id, go, fetchedUser, locations, playersCount, setPlayersCount, s
 		setLocations(items);
 	}
 
+	const [isCreating, setIsCreating] = useState(false);
+	const [newLocation, setNewLocation] = useState({ id: locations[locations.length - 1] + 1, title: '', status: '' });
+
+	const setIsCreation = () => {
+		setIsCreating(true);
+	}
+
+	const addNewLocation = () => {
+        setLocations([...locations, newLocation]);
+		setIsCreating(false);
+		console.log(locations)
+	}
+
 	return (
 		<Panel id={id}>
 			<PanelHeader>Локации</PanelHeader>
@@ -85,6 +98,22 @@ const Home = ({ id, go, fetchedUser, locations, playersCount, setPlayersCount, s
 							<Input value={location.title} onChange={e => changeLocationTitle(e.target.value, idx)}/>
 						</Cell>
 					)}
+
+					<Button stretched size="l" mode="secondary" onClick={setIsCreation}>
+						+
+					</Button>
+
+					{isCreating &&
+						<Cell>
+							<Input value={newLocation.status} onChange={e => setNewLocation({...newLocation, status: e.target.value})} placeholder={'Статус'} />
+
+							<Input value={newLocation.title} onChange={e => setNewLocation({...newLocation, title: e.target.value})} placeholder={'Локация'} />
+
+							<Button stretched size="l" mode="secondary" onClick={addNewLocation}>
+								Сохранить
+							</Button>
+						</Cell>
+					}
 				</Group>
 			</Div>}
 	
