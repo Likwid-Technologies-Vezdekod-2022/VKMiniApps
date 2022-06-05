@@ -41,8 +41,16 @@ const Game = ({id, go, deck, playersCount, setPlayersCount}) => {
 		}, 1000);
 	}
 
+	const [spyesCards, setSpyesCards] = useState([]);
+
+	const filterDeckBySpy = () => {
+		setSpyesCards([...deck].filter(item => item.status === 'Шпион'));
+	}
+
 	useEffect(async () => {
 		await fetchFlashlight();
+
+		filterDeckBySpy();
 
 		updateTime();
 	}, [])
@@ -135,6 +143,16 @@ const Game = ({id, go, deck, playersCount, setPlayersCount}) => {
 								header="Игра окончена!"
 							/>
 						</CardGrid>
+
+						{spyesCards.map((card, idx) =>
+			
+							<ContentCard
+								style={{marginTop: '15px'}}
+								subtitle={card.status}
+								header={card.owner}
+								key={idx}
+							/>
+						)}
 					</Group>
 				</Div>}
 			</Div>
