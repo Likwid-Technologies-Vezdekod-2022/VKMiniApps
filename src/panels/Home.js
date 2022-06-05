@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 import { Panel, PanelHeader, Button, Group, Cell, Div, FormLayout, FormItem, Input } from '@vkontakte/vkui';
 
-const Home = ({ id, go, fetchedUser, locations, playersCount, setPlayersCount, setDeck }) => {
+const Home = ({ id, go, fetchedUser, locations, playersCount, setPlayersCount, setDeck, setLocations }) => {
 
 	const [disabled, setDisabled] = useState(true);
 
@@ -42,6 +42,24 @@ const Home = ({ id, go, fetchedUser, locations, playersCount, setPlayersCount, s
 		else setDisabled(true);
 	}
 
+	const changeLocationStatus = (value, idx) => {
+		let items = [...locations];
+		let item = {...items[idx], status: value};
+
+		items[idx] = item;
+
+		setLocations(items);
+	}
+
+	const changeLocationTitle = (value, idx) => {
+		let items = [...locations];
+		let item = {...items[idx], title: value};
+
+		items[idx] = item;
+
+		setLocations(items);
+	}
+
 	return (
 		<Panel id={id}>
 			<PanelHeader>Локации</PanelHeader>
@@ -62,9 +80,9 @@ const Home = ({ id, go, fetchedUser, locations, playersCount, setPlayersCount, s
 
 				<Group>
 					{locations.map((location, idx) =>
-						<Cell description={`Статус: ${location.status}`} key={location.id}>
+						<Cell description={<Input value={location.status} onChange={e => changeLocationStatus(e.target.value, idx)}/>} key={location.id}>
 
-						{location.title}
+							<Input value={location.title} onChange={e => changeLocationTitle(e.target.value, idx)}/>
 						</Cell>
 					)}
 				</Group>
